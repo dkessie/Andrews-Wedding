@@ -1,36 +1,44 @@
 let lastPlayedIndex = -1;
 
 const musicPlaylist = [
-    'instrumentals/1.mp3', 
-    'instrumentals/2.mp3', 
-    'instrumentals/3.mp3',
-    'instrumentals/4.mp3', 
-    'instrumentals/5.mp3', 
-    'instrumentals/6.mp3'
+    'instrumentals/1.mp3', 'instrumentals/2.mp3', 'instrumentals/3.mp3',
+    'instrumentals/4.mp3', 'instrumentals/5.mp3', 'instrumentals/6.mp3'
 ];
 
 window.addEventListener('DOMContentLoaded', () => {
     initializeCountdown();
+    setupTimeConversion();
     setupMusicPlayer();
+    setupVideoMusicInteraction();
 });
 
+// ===== INVITATION CHECK =====
 function checkInvitation() {
     const input = document.getElementById('loginInput').value.trim();
     
     if (!input) {
-        alert('Please enter something to continue.');
+        showError('Please type "Andy & Debby" to view the invitation.');
         return;
     }
 
-    // Accept any input - no validation needed
+    const normalized = input.toLowerCase().replace(/[^a-z&]/g, '');
+    const target = 'andy&debby';
+
+    if (normalized !== target) {
+        showError('Hint: Please enter "Andy & Debby" to see your invitation.');
+        return;
+    }
+
+    // Grant access
     document.getElementById('loginModal').style.display = 'none';
     document.getElementById('mainContent').style.display = 'block';
-    
-    // Start playing background music
     playBackgroundMusic();
-    
-    // Initialize YouTube players after content is shown
-    initializeYouTubePlayers();
+}
+
+function showError(message) {
+    const errorMessage = document.getElementById('errorMessage');
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
 }
 
 document.getElementById('loginInput')?.addEventListener('keypress', (e) => {
@@ -39,9 +47,9 @@ document.getElementById('loginInput')?.addEventListener('keypress', (e) => {
     }
 });
 
+// ===== COUNTDOWN =====
 function initializeCountdown() {
     const weddingDate = new Date('April 18, 2026 12:00:00 GMT');
-    const countdownElement = document.getElementById('countdown');
     
     function updateCountdown() {
         const now = new Date();
@@ -57,8 +65,11 @@ function initializeCountdown() {
             document.getElementById('hours').textContent = hours;
             document.getElementById('minutes').textContent = minutes;
             document.getElementById('seconds').textContent = seconds;
-        } else if (countdownElement) {
-            countdownElement.innerHTML = '<h3 style="color: white;">The Wedding Day is Here!</h3>';
+        } else {
+            const countdown = document.getElementById('countdown');
+            if (countdown) {
+                countdown.innerHTML = '<h3 style="font-family: Dancing Script, cursive; font-size: 2em; color: var(--turquoise);">The Wedding Day is Here! 🎉</h3>';
+            }
         }
     }
     
@@ -66,9 +77,39 @@ function initializeCountdown() {
     setInterval(updateCountdown, 1000);
 }
 
+// ===== TIME CONVERSION =====
+function setupTimeConversion() {
+    const timeDisplays = document.querySelectorAll('.time-display');
+    timeDisplays.forEach(display => {
+        const gmtTime = display.getAttribute('data-gmt');
+        const eventCard = display.closest('.event-card') || display.closest('.event-details');
+        if (!eventCard) return;
+
+        const localTimeElement = eventCard.querySelector('.local-time');
+        if (!localTimeElement) return;
+
+        const [time, period] = gmtTime.split(' ');
+        const [hours, minutes] = time.split(':');
+        let hour = parseInt(hours);
+        if (period === 'PM' && hour !== 12) hour += 12;
+        if (period === 'AM' && hour === 12) hour = 0;
+        
+        const weddingDateTime = new Date(`April 18, 2026 ${hour.toString().padStart(2, '0')}:${minutes}:00 GMT`);
+        
+        const localTime = weddingDateTime.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+            timeZoneName: 'short'
+        });
+
+        localTimeElement.textContent = `(${localTime} in your timezone)`;
+    });
+}
+
+// ===== MUSIC PLAYER =====
 function setupMusicPlayer() {
     const audio = document.getElementById('backgroundMusic');
-    audio.removeEventListener('ended', handleMusicEnded);
     audio.addEventListener('ended', handleMusicEnded);
     audio.addEventListener('error', () => {
         playBackgroundMusic();
@@ -97,10 +138,10 @@ function playBackgroundMusic() {
         audio.src = musicPlaylist[randomIndex];
     }
     
-    audio.volume = 0.25;
+    audio.volume = 0.3;
     
     setTimeout(() => {
-        audio.play().catch(error => {
+        audio.play().catch(() => {
             if (musicPlaylist.length > 1) {
                 playBackgroundMusic();
             }
@@ -108,100 +149,38 @@ function playBackgroundMusic() {
     }, 50);
 }
 
-function pauseBackgroundMusic() {
-    const audio = document.getElementById('backgroundMusic');
-    audio.pause();
-}
-
-// YouTube Player functionality
-let perfectPlayer = null;
-let ordinaryPlayer = null;
-
-function initializeYouTubePlayers() {
-    // Load YouTube IFrame API
-    if (!window.YT) {
-        const tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-    }
-}
-
-// This function is called by the YouTube API when it's ready
-window.onYouTubeIframeAPIReady = function() {
-    console.log('YouTube API Ready');
-};
-
-function createYouTubePlayer(containerId, videoId) {
-    return new YT.Player(containerId, {
-        height: '100%',
-        width: '100%',
-        videoId: videoId,
-        playerVars: {
-            autoplay: 1,
-            controls: 1,
-            modestbranding: 1,
-            rel: 0
-        },
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        }
+// ===== VIDEO-MUSIC INTERACTION =====
+function setupVideoMusicInteraction() {
+    const videos = document.querySelectorAll('.song-inline-video video');
+    
+    videos.forEach(video => {
+        // Pause background music when a song video starts playing
+        video.addEventListener('play', () => {
+            const audio = document.getElementById('backgroundMusic');
+            audio.pause();
+            
+            // Pause any other playing videos
+            videos.forEach(otherVideo => {
+                if (otherVideo !== video && !otherVideo.paused) {
+                    otherVideo.pause();
+                }
+            });
+        });
+        
+        // Resume background music when video is paused or ends
+        video.addEventListener('pause', () => {
+            // Only resume if no other video is playing
+            const anyPlaying = Array.from(videos).some(v => !v.paused);
+            if (!anyPlaying) {
+                playBackgroundMusic();
+            }
+        });
+        
+        video.addEventListener('ended', () => {
+            const anyPlaying = Array.from(videos).some(v => !v.paused);
+            if (!anyPlaying) {
+                playBackgroundMusic();
+            }
+        });
     });
-}
-
-function onPlayerReady(event) {
-    // Player is ready
-    event.target.playVideo();
-}
-
-function onPlayerStateChange(event) {
-    // Handle player state changes if needed
-}
-
-function playVideo(videoId) {
-    pauseBackgroundMusic();
-    
-    const modal = document.getElementById(videoId);
-    modal.style.display = 'flex';
-    
-    // Create YouTube player if it doesn't exist
-    if (videoId === 'perfect' && !perfectPlayer) {
-        if (window.YT && window.YT.Player) {
-            perfectPlayer = createYouTubePlayer('perfectPlayer', 'ZycMJWv2vtY');
-        }
-    } else if (videoId === 'ordinary' && !ordinaryPlayer) {
-        if (window.YT && window.YT.Player) {
-            ordinaryPlayer = createYouTubePlayer('ordinaryPlayer', 'u2ah9tWTkmk');
-        }
-    }
-    
-    // If player exists, play it
-    if (videoId === 'perfect' && perfectPlayer && perfectPlayer.playVideo) {
-        perfectPlayer.playVideo();
-    } else if (videoId === 'ordinary' && ordinaryPlayer && ordinaryPlayer.playVideo) {
-        ordinaryPlayer.playVideo();
-    }
-}
-
-function closeVideo(videoId) {
-    const modal = document.getElementById(videoId);
-    modal.style.display = 'none';
-    
-    // Stop the video
-    if (videoId === 'perfect' && perfectPlayer && perfectPlayer.pauseVideo) {
-        perfectPlayer.pauseVideo();
-    } else if (videoId === 'ordinary' && ordinaryPlayer && ordinaryPlayer.pauseVideo) {
-        ordinaryPlayer.pauseVideo();
-    }
-    
-    playBackgroundMusic();
-}
-
-// Close modal when clicking outside
-window.onclick = function(event) {
-    if (event.target.classList.contains('video-modal')) {
-        const videoId = event.target.id;
-        closeVideo(videoId);
-    }
 }
