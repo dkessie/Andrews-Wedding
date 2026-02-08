@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrews & Deborah - Wedding Invitation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@300;400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="floating-hashtag">#AndyAndDebby2026</div>
+    
+    <div class="floating-flowers">
+        <div class="flower-particle" style="--delay: 0s; --x: 10%; --y: 10%;"></div>
+        <div class="flower-particle" style="--delay: 2s; --x: 80%; --y: 20%;"></div>
+        <div class="flower-particle" style="--delay: 4s; --x: 15%; --y: 60%;"></div>
+        <div class="flower-particle" style="--delay: 6s; --x: 85%; --y: 70%;"></div>
+        <div class="flower-particle" style="--delay: 8s; --x: 50%; --y: 40%;"></div>
+        <div class="flower-particle" style="--delay: 10s; --x: 30%; --y: 85%;"></div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content login-modal">
+            <div class="floral-decoration top-left"></div>
+            <div class="floral-decoration top-right"></div>
+            <div class="floral-decoration bottom-left"></div>
+            <div class="floral-decoration bottom-right"></div>
+            
+            <div class="modal-header">
+                <h2>Welcome</h2>
+                <p class="login-instruction">Please Enter <span class="highlight-text">"Andy & Debby"</span> to see your invitation</p>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="loginInput" placeholder="Enter here">
+                <button onclick="checkInvitation()">View Invitation</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <header>
+            <div class="header-ornament"></div>
+            <div class="header-content">
+                <div class="infinity-symbol">∞</div>
+                <h1 class="couple-names">Andrews & Deborah</h1>
+                <p class="wedding-tagline">A Celebration of Love</p>
+                <p class="wedding-date">April 18, 2026</p>
+                <div class="invitation-text">
+                    <p>Together with their families,</p>
+                    <p class="full-names"><strong>Andrews Nkansah</strong> and <strong>Deborah Akosua Boakye</strong></p>
+                    <p>joyfully invite you to celebrate their marriage.</p>
+                </div>
+            </div>
+            <div class="header-ornament bottom"></div>
+        </header>
+
+        <section class="personalized-greeting-section">
+            <div class="greeting-content">
+                <h3>Hello Family,</h3>
+                <p>You are warmly invited to our wedding celebration.</p>
+            </div>
+        </section>
+
+        <section class="countdown-section">
+            <h2>Countdown to Our Special Day</h2>
+            <div id="countdown" class="countdown">
+                <div class="countdown-item">
+                    <span id="days">0</span>
+                    <label>Days</label>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours">0</span>
+                    <label>Hours</label>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes">0</span>
+                    <label>Minutes</label>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds">0</span>
+                    <label>Seconds</label>
+                </div>
+            </div>
+        </section>
+
+        <section class="event-section">
+            <h2>Wedding Celebration</h2>
+            <div class="event-card">
+                <div class="event-header">
+                    <div class="date-badge">
+                        <span class="day">18</span>
+                        <span class="month">April</span>
+                        <span class="year">2026</span>
+                    </div>
+                </div>
+                <div class="event-details">
+                    <h3>Our Wedding Day</h3>
+                    <div class="detail-row">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <p><strong>Time:</strong> 12:00 PM</p>
+                            <p class="time-note">⏰ No Ghana Man Time</p>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <p><strong>Venue:</strong> Baca Hotel and Event Center</p>
+                            <p class="venue-address">Near Galloway Police Headquarters<br>Behind Jubilee Park<br>Koforidua - Eastern Region, Ghana</p>
+                        </div>
+                    </div>
+                    <a href="https://maps.google.com/?q=Baca+Hotel+Koforidua" target="_blank" class="directions-btn">
+                        <i class="fas fa-directions"></i> Get Directions
+                    </a>
+                    
+                    <div class="zoom-section">
+                        <h4><i class="fas fa-video"></i> Join Virtually</h4>
+                        <div class="zoom-details">
+                            <p><strong>Zoom Link:</strong></p>
+                            <a href="https://jworg.zoom.us/j/81152399853" target="_blank" class="zoom-link">
+                                jworg.zoom.us/j/81152399853
+                            </a>
+                            <p><strong>Passcode:</strong> 1842026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="colors-section">
+            <h2>Wedding Colors</h2>
+            <div class="color-palette">
+                <div class="color-swatch turquoise">
+                    <div class="color-circle"></div>
+                    <p>Turquoise Green</p>
+                </div>
+                <div class="color-swatch white">
+                    <div class="color-circle"></div>
+                    <p>White</p>
+                </div>
+                <div class="color-swatch blueblack">
+                    <div class="color-circle"></div>
+                    <p>Blue Black</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="songs-section">
+            <h2>Our Special Songs</h2>
+            <p class="songs-intro">These songs hold a special place in our hearts. Click to watch and listen.</p>
+            <div class="songs-container">
+                <div class="song-card" onclick="playVideo('perfect')">
+                    <div class="song-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3>Perfect</h3>
+                    <p class="artist">Ed Sheeran</p>
+                    <p class="song-quote">"I found a love for me..."</p>
+                </div>
+                <div class="song-card" onclick="playVideo('ordinary')">
+                    <div class="song-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3>Ordinary</h3>
+                    <p class="artist">Alex Warren</p>
+                    <p class="song-quote">"You're takin' me out of the ordinary..."</p>
+                </div>
+            </div>
+        </section>
+
+        <div id="perfect" class="video-modal" style="display: none;">
+            <div class="video-modal-content">
+                <button class="close-video" onclick="closeVideo('perfect')">×</button>
+                <div class="video-container">
+                    <div class="youtube-player" id="perfectPlayer"></div>
+                    <div class="lyrics-container">
+                        <h3>Perfect - Ed Sheeran</h3>
+                        <div class="lyrics-text">
+                            <p>I found a love for me<br>
+                            Oh, darling, just dive right in and follow my lead<br>
+                            Well, I found a girl, beautiful and sweet<br>
+                            Oh, I never knew you were the someone waitin' for me</p>
+                            
+                            <p>'Cause we were just kids when we fell in love, not knowin' what it was<br>
+                            I will not give you up this time<br>
+                            Oh, darling, just kiss me slow, your heart is all I own<br>
+                            And in your eyes, you're holding mine</p>
+                            
+                            <p class="chorus"><strong>Baby, I'm dancin' in the dark with you between my arms<br>
+                            Barefoot on the grass while listenin' to our favourite song<br>
+                            When you said you looked a mess, I whispered underneath my breath<br>
+                            But you heard it, "Darling, you look perfect tonight"</strong></p>
+                            
+                            <p>Well, I found a woman, stronger than anyone I know<br>
+                            She shares my dreams, I hope that someday, I'll share her home<br>
+                            I found a love to carry more than just my secrets<br>
+                            To carry love, to carry children of our own</p>
+                            
+                            <p>We are still kids, but we're so in love, fightin' against all odds<br>
+                            I know we'll be alright this time<br>
+                            Darling, just hold my hand, be my girl, I'll be your man<br>
+                            I see my future in your eyes</p>
+                            
+                            <p class="chorus"><strong>Oh, baby, I'm dancin' in the dark with you between my arms<br>
+                            Barefoot on the grass while listenin' to our favourite song<br>
+                            When I saw you in that dress, lookin' so beautiful<br>
+                            I don't deserve this, darling, you look perfect tonight</strong></p>
+                            
+                            <p class="chorus"><strong>Baby, I'm dancin' in the dark with you between my arms<br>
+                            Barefoot on the grass while listenin' to our favourite song<br>
+                            I have faith in what I see, now I know I have met<br>
+                            An angel in person, and she looks perfect<br>
+                            Though I don't deserve this, you look perfect tonight</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="ordinary" class="video-modal" style="display: none;">
+            <div class="video-modal-content">
+                <button class="close-video" onclick="closeVideo('ordinary')">×</button>
+                <div class="video-container">
+                    <div class="youtube-player" id="ordinaryPlayer"></div>
+                    <div class="lyrics-container">
+                        <h3>Ordinary - Alex Warren</h3>
+                        <div class="lyrics-text">
+                            <p>They say, "The holy water's watered down<br>
+                            And this town's lost its faith<br>
+                            Our colors will fade eventually"</p>
+                            
+                            <p>So if our time is runnin' out<br>
+                            Day after day<br>
+                            We'll make the mundane our masterpiece</p>
+                            
+                            <p>Oh my, my<br>
+                            Oh my, my love</p>
+                            
+                            <p class="chorus"><strong>I take one look at you<br>
+                            You're takin' me out of the ordinary<br>
+                            I want you layin' me down 'til we're dead and buried<br>
+                            On the edge of your knife, stayin' drunk on your vine<br>
+                            The angels up in the clouds are jealous, knowin' we found<br>
+                            Somethin' so out of the ordinary</strong></p>
+                            
+                            <p class="chorus"><strong>You got me kissin' the ground of your sanctuary<br>
+                            Shatter me with your touch, oh Lord, return me to dust<br>
+                            The angels up in the clouds are jealous, knowin' we found</strong></p>
+                            
+                            <p>Hopeless hallelujah<br>
+                            On this side of Heaven's gate<br>
+                            Oh, my life, how do ya<br>
+                            Breathe and take my breath away?</p>
+                            
+                            <p>At your altar, I will pray<br>
+                            You're the sculptor, I'm the clay</p>
+                            
+                            <p>Oh my, my</p>
+                            
+                            <p class="chorus"><strong>You're takin' me out of the ordinary<br>
+                            I want you layin' me down 'til we're dead and buried<br>
+                            On the edge of your knife, stayin' drunk on your vine<br>
+                            The angels up in the clouds are jealous, knowin' we found<br>
+                            Somethin' so out (out) of the ordinary (ordinary)<br>
+                            You got me kissin' the ground (ground) of your sanctuary (sanctuary)<br>
+                            Shatter me with your touch, oh Lord, return me to dust<br>
+                            The angels up in the clouds are jealous, knowin' we found</strong></p>
+                            
+                            <p>Somethin' so heavenly, higher than ecstasy<br>
+                            Whenever you're next to me, oh my, my<br>
+                            World was in black and white until I saw your light<br>
+                            I thought you had to die to find</p>
+                            
+                            <p class="chorus"><strong>Somethin' so out of the ordinary<br>
+                            I want you layin' me down 'til we're dead and buried<br>
+                            On the edge of your knife, stayin' drunk on your vine<br>
+                            The angels up in the clouds are jealous, knowin' we found<br>
+                            Somethin' so out (out) of the ordinary<br>
+                            You got me kissin' the ground (ground) of your sanctuary (sanctuary)<br>
+                            Shatter me with your touch, oh Lord, return me to dust<br>
+                            The angels up in the clouds are jealous, knowin' we found</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="rsvp-section">
+            <h2>RSVP</h2>
+            <div class="rsvp-content">
+                <p class="rsvp-message">We would appreciate knowing if you are unable to attend. Please contact:</p>
+                <div class="rsvp-contacts">
+                    <div class="rsvp-contact">
+                        <i class="fas fa-user-circle"></i>
+                        <div>
+                            <p class="contact-name">Josuah</p>
+                            <a href="tel:0597997795" class="contact-phone">
+                                <i class="fas fa-phone"></i> 0597 997 795
+                            </a>
+                        </div>
+                    </div>
+                    <div class="rsvp-contact">
+                        <i class="fas fa-user-circle"></i>
+                        <div>
+                            <p class="contact-name">Eunice</p>
+                            <a href="tel:0542344171" class="contact-phone">
+                                <i class="fas fa-phone"></i> 054 234 4171
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="important-note">
+            <div class="note-card">
+                <i class="fas fa-heart"></i>
+                <p>We look forward to celebrating this special day with you!</p>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-ornament"></div>
+            <p class="footer-names">Andrews & Deborah</p>
+            <p class="footer-date">April 18, 2026</p>
+            <p class="footer-hashtag">#AndyAndDebby2026</p>
+        </footer>
+    </div>
+
+    <audio id="backgroundMusic"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
