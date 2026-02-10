@@ -17,15 +17,15 @@ function checkInvitation() {
     const input = document.getElementById('loginInput').value.trim();
     
     if (!input) {
-        showError('Please type "Andy & Debby" to view the invitation.');
+        showError('Please type "Andy & Debbie" to view the invitation.');
         return;
     }
 
     const normalized = input.toLowerCase().replace(/[^a-z&]/g, '');
-    const target = 'andy&debby';
+    const target = 'andy&debbie';
 
     if (normalized !== target) {
-        showError('Hint: Please enter "Andy & Debby" to see your invitation.');
+        showError('Hint: Please enter "Andy & Debbie" to see your invitation.');
         return;
     }
 
